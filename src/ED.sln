@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ED.Tools.Companion", "ED.To
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ED.Tools.Inara", "ED.Tools.Inara\ED.Tools.Inara.csproj", "{3F28D41E-6B89-4B7E-98EF-1C515691F952}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNetCore.Authentication.Frontier", "Microsoft.AspNetCore.Authentication.Frontier\Microsoft.AspNetCore.Authentication.Frontier.csproj", "{1216C842-10CE-4BCF-94E6-B013951871FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3F28D41E-6B89-4B7E-98EF-1C515691F952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F28D41E-6B89-4B7E-98EF-1C515691F952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F28D41E-6B89-4B7E-98EF-1C515691F952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1216C842-10CE-4BCF-94E6-B013951871FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1216C842-10CE-4BCF-94E6-B013951871FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1216C842-10CE-4BCF-94E6-B013951871FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1216C842-10CE-4BCF-94E6-B013951871FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

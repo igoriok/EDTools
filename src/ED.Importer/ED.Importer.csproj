@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ED.Tools.Inara\ED.Tools.Inara.csproj" />
     <ProjectReference Include="..\ED.Journal\ED.Journal.csproj" />
     <ProjectReference Include="..\ED.Tools.Companion\ED.Tools.Companion.csproj" />
+    <ProjectReference Include="..\Microsoft.AspNetCore.Authentication.Frontier\Microsoft.AspNetCore.Authentication.Frontier.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,11 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Threading.Tasks;
+using AutoMapper;
 using ED.Importer.Options;
 using ED.Journal.Events;
 using ED.Tools.Inara.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Frontier;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,9 +30,9 @@ namespace ED.Importer
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<InaraOptions>(Configuration.GetSection("Inara"));
-            services.Configure<FrontierAuthOptions>(Configuration.GetSection("FrontierAuth"));
+            services.Configure<FrontierAuthOptions>(Configuration.GetSection("Frontier"));
             services
-                .AddOptions<OAuthOptions>("frontier")
+                .AddOptions<FrontierOptions>(FrontierDefaults.AuthenticationScheme)
                 .Configure<IOptions<FrontierAuthOptions>>((oauthOptions, frontierAuthOptions) =>
                 {
                     oauthOptions.ClientId = frontierAuthOptions.Value.ClientId;
@@ -43,19 +46,24 @@ namespace ED.Importer
                 .AddAuthentication(o =>
                 {
                     o.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    o.DefaultChallengeScheme = "frontier";
+                    o.DefaultChallengeScheme = FrontierDefaults.AuthenticationScheme;
                 })
                 .AddCookie()
-                .AddOAuth("frontier", o =>
+                .AddFrontier(o =>
                 {
-                    o.AuthorizationEndpoint = "https://auth.frontierstore.net/auth";
-                    o.TokenEndpoint = "https://auth.frontierstore.net/token";
-                    o.CallbackPath = "/callback";
-
-                    o.Scope.Add("auth");
-                    o.Scope.Add("capi");
-
                     o.SaveTokens = true;
+                    o.Events = new OAuthEvents
+                    {
+                        OnCreatingTicket = (ctx) =>
+                        {
+                            if (ctx.ExpiresIn.HasValue)
+                            {
+                                ctx.Properties.ExpiresUtc = DateTimeOffset.UtcNow.Add(ctx.ExpiresIn.Value);
+                            }
+
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             services
